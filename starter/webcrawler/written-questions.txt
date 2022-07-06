@@ -1,0 +1,90 @@
+Written Questions
+
+Q1. Run the web crawler using the configurations located at src/main/config/written_question_1a.json and
+    src/main/config/written_question_1b.json. The only difference between these configurations is that one always uses
+    the sequential crawler and the other always uses the parallel crawler. Inspect the profile output in
+    profileData.txt.
+
+    If you are using a multi-processor computer, you should notice that SequentialWebCrawler#crawl and
+    ParallelWebCrawler#crawl took about the same amount of time, but PageParserImpl#parse took much longer when run with
+    the ParallelWebCrawler.
+
+    Why did the parser take more time when run with ParallelWebCrawler?
+    
+    Answer: The reason for the parser taking more time with parallel web crawler is beacuse it is seen that the method called "record" in "Profiling state" is actually adding up all the the time taken by all threads.
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+Q2. Your manager ran your crawler on her old personal computer, using the configurations from Q1, and she notices that
+    the sequential crawler actually outperforms the parallel crawler. She would like to know why.
+
+    (a) Suggest one reason why the sequential web crawler was able to read more web pages than the parallel crawler.
+        (Hint: Try setting "parallelism" to 1 in the JSON configs to simulate your manager's computer.)
+        
+     Answer: There may be several reasons:
+     # As the system is old ,it may not have the multithreading capabilities.
+     # The low resource computer may be struggling to run the parallel web crawler.
+     # Hence sequential has better performance at singlecore or single thread cpu
+
+    (b) Suggest one scenario in which the parallel web crawler will almost certainly perform better than the sequential
+        crawler. Why will it perform better?
+        
+      Answer : At scenarios:
+      # When prallel web crawler runs on a syatem with multicore cpu .
+      # When system support the concept of "Parallelism"
+      # higher the cpu cores higher the performace of parallel crawler.
+      
+      
+      
+      
+      
+      
+      
+
+
+Q3. Analyze your method profiler through the lens of Aspect Oriented Programming, by answering the following questions:
+
+    (a) What cross-cutting concern is being addressed by the com.udacity.webcrawler.profiler.Profiler class?
+    
+    
+    Answer : The idea of performace mesurement (Time taken) by paralle web crawler and page parser implemetation.
+
+    (b) What are the join points of the Profiler in the web crawler program?
+    
+    Answer: The join points of the Profiler in the web crawler program is the method defined as "@profiled annotations".(@ - Annotations)
+
+
+
+
+
+
+
+
+
+
+Q4. Identify three (3) different design patterns used in this project, and explain which interfaces, classes, and/or
+    libraries use or implement those design patterns.
+
+    For each pattern, name one thing about the pattern that you LIKED, and one thing you DISLIKED. If you did not like
+    anything, you can name two things you disliked.
+    
+    
+    Answer:
+    
+    1. Builder Pattern -- The pattern is seen and used over a variety of methods and classes. It is used in crawler result and crawler configuration.It is observed that giving inputs in the parametrs which are long sometimes are not flexible because we may need all parameters to be passes and only the selective one.(liked---) This builder provides flexibility in that way.
+    	(Disliked---)But it requires more number of code to be written which at sometimes make code look longer. So it can create confusion on which ccertain code is written multiple times.
+    	
+    	
+    2.Proxy Pattern -- It is used in profilerImpl class which was the last task of the project. As the name suggest it behaves as a placeholder and hence providing security(--Liked). As Iam being a starter it took me lot time to understand the concept and its functionality meaning its complexity (---which i disliked)
+    
+    3. Dependency Pattern(also known as injection) -- It is used in classes like ParallelwebCrawler , webCrawlerMain etc.The code becomes more readable,clean and most importantly it is losely coupled hence can support changes in the future(--Liked). The thing i disliked is again in increases the number of lines of code as it creates more additional classes.
+
+
